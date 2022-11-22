@@ -1,0 +1,63 @@
+@startuml
+
+entity User {
+    * id : INT
+    --
+    * name : VARCHAR
+    * occupation : VARCHAR
+    * email : VARCHAR
+    * password : PASSWORD
+    avatar_file_name : VARCHAR
+    * role : VARCHAR
+    * token : VARCHAR
+    * created_at : DATETIME
+    * updated_at : DATETIME
+}
+
+entity Campaign {
+    * id : INT
+    * user_id : INT
+    --
+    * name : VARCHAR
+    * short_description : VARCHAR
+    * description : TEXT
+    * goal : INT
+    * current_ammount : INT
+    * perks : TEXT
+    * slug : VARCHAR
+    * backer_count : INT
+    * created_at : DATETIME
+    * updated_at : DATETIME
+}
+
+entity CampaignImage {
+    * id : INT
+    * campaign_id : INT
+    --
+    * is_primary : BOOLEAN (TINYINT)
+    * file_name : VARCHAR
+    * created_at : DATETIME
+    * updated_at : DATETIME
+}
+
+entity Transaction {
+    * id : INT
+    * campaign_id : INT
+    * user_id : INT
+    --
+    * status : VARCHAR
+    * code : VARCHAR
+    * amount : INT
+    * created_at : DATETIME
+    * updated_at : DATETIME
+}
+
+User ||--o{ Campaign : Create
+
+Campaign ||--|{ CampaignImage : Has
+
+User ||--o{ Transaction : Has
+
+Campaign ||--o{ Transaction : Has
+
+@enduml
